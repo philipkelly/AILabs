@@ -1,0 +1,62 @@
+---------------------Question 1.-----------------------
+Write a program all members( +X, +Y ) which checks whether all members of a given list
+X are members of another given list Y.Use the SWI-Prolog built-in predicate member/2.
+For example:
+    ?- all_members([a,a,d,e], [a,b,c,d,e]).
+        yes
+    ?- all_members([a,a,d,e], [a,b,c,d]).
+        no
+    ?- all_members([], []).
+        yes
+
+---------------------Question 2.-----------------------
+Write a program pairs( +X, ?Y ) which, given a list X of numbers, constructs a list Y of
+the same length such that each member of Y is (U, V) when the corresponding member of X is N
+and U is N-1 and V is N+1.
+    e.g. pairs( [1,3,7], Y ) produces as result Y = [(0,2),(2,4),(6,8)].
+
+---------------------Question 3.-----------------------
+Write a program arbpairs( +X, ?Y ) which, given a list X of numbers, constructs a list Y
+of the same length such that each member of Y is (N, L) when the corresponding member of X is N
+and L is either N or 2N.
+
+    e.g. arbpairs( [2,4], Y ) produces all of the following as possible solutions:
+        Y = [(2,2),(4,4)]
+        Y = [(2,4),(4,4)]
+        Y = [(2,2),(4,8)]
+        Y = [(2,4),(4,8)]
+
+---------------------Question 4.-----------------------
+Write a program replace wrap/2, which replaces every member X of a list with wrap(X):
+(This can be done recursivly but also try without and define replace wrap/2 using findall/3)
+    ?- replace_wrap([a,b,b,c], Res).
+    Res = [wrap(a),wrap(b),wrap(b),wrap(c)]
+
+
+---------------------Question 5.-----------------------
+Write a program even members( +X, ?Y ) which, given a list X constructs the list Y consisting of the 2nd, 4th, 6th,. . . members of the input list X:
+    ?- even_members([a,b,c,d,e,f,g], Res).
+    Res = [b,d,f]
+
+
+---------------------Question 6.-----------------------
+Generalise the previous question. Write a program odd even members( +X, ?Y, ?Z ) which,
+given a list X constructs the lists Y and Z consisting of the 1st, 3rd, 5th,. . . and 2nd, 4th, 6th
+,. . .
+
+members of the input list X, respectively:
+    ?- odd_even_members([a,b,c,d,e,f,g], Odds, Evens).
+    Evens = [b,d,f], Odds = [a,c,e,g]
+
+
+
+---------------------Question 7.-----------------------
+for the purposes of this exercise, suppose that an arithmetic term is defined to be:
+    a number
+    else a term a(X,Y) where X and Y are both arithmetic terms
+    else a term m(X,Y) where X and Y are both arithmetic terms
+
+where term a(X,Y) represents X + Y, whilst m(X,Y) represents X ∗ Y.
+Write a program numval( +A, ?V ) which, given the arithmetic term A, computes the numerical value V that it represents.
+For example, if A = a(m(3,a(2,5)),a(2,3)) then A represents (3 ∗ (2 + 5)) + (2 + 3) and so V = 26.
+The only predicates that you need are numval/2 itself, number/1 and is/2.
