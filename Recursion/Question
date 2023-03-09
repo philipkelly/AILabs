@@ -1,0 +1,54 @@
+When specifying a relation/program to be defined by Prolog clauses in this and subsequent exercises we will use argument annotations to indicate the intended uses of the definition.
+We write to indicate that an argument +X will be given, -X to indicate that the argument X will
+be an unbound variable, and ?X to indicate that it can be given or be an unbound variable. This
+is the notation used in the SWI-Prolog manual when describing uses of the primitive (‘built in’)
+predicates.
+
+1a.
+Write two Prolog clauses in order to define the predicate path( ?X, ?Z ) which holds
+when the graph contains a uniformly-directed path from X to Z. For instance, in the
+given graph there is a path from b to f.
+Your program should refer only to the path and arc predicates.
+
+1b.
+Enter and run queries asking if
+i. there is a path from a to f that passes through d;
+ii. there is a path of length 3 ending at f (assume each arc has unit length);
+iii. there is a cycle in the graph.
+
+2.
+ The Peano numbers are 0, s(0), s(s(0)), ... etc. representing 0, 1, 2, ... etc.
+(a) Write a Prolog program for plus( ?X, ?Y, ?Z ) which holds when X, Y and Z are
+Peano numbers satisfying X + Y = Z. Use no predicate other than plus.
+
+(b) Try out your program for the queries
+i. plus(s(0), s(s(0)), Z).
+ii. plus(s(0), Y, s(s(s(s(0))))).
+iii. plus(X, Y, s(s(s(s(0))))).
+
+(c) Write a single rule defining odd( ?X ) in terms only of plus, where odd( X ) expresses
+that X is an odd number. Test it with some queries.
+
+
+3. Write a (recursive) program for ones zeros( ?X ) which holds when X is a list each of whose
+members, if any, is either 1 or 0.
+
+4.Write a program for hasdups( ?X ) which holds when list X contains at least two occurrences
+of some member. You can use member/2, which is a built-in predicate in SWI-Prolog (but
+not necessarily in other Prolog implementations).
+
+5.Write a recursive program for prod(+L, ?P) which takes a non-empty list L of numbers and
+returns the product P of all the numbers in the list. For example, the query prod( [7, 2,
+-3], Prod ) returns Prod = -42. Refer only to prod/2 and the built-in predicate is/2.
+
+
+6.The predicate contains( List1, List2, N ) holds when the list List2 is a sublist of the
+list List1; the first element of List2 occupies position N in List1.
+contains( [a,b,c,a,d,e,f,g], [a,d,e,f,g], N )
+    N = 4
+contains( [a,b,c,a,d,c,a,b,c], [a,b], N )
+    N = 1
+    N = 7
+contains( [a,b,c,e,d,f], [c,e,g], N )
+    no
+Define contains( +List1, +List2, ?N ) in a single rule using append/3 and length/2.
