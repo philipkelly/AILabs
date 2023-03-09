@@ -1,0 +1,78 @@
+------------------Question 1 -------------------
+
+    1-----2
+    | \ / |
+    |  3  |
+    | / \ |
+    4-----5
+
+One way to represent the edges of the graph is via series of Prolog facts of the form:
+edge(1,2).
+edge(1,4).
+edge(1,3).
+edge(2,3).
+edge(2,5).
+edge(3,4).
+edge(3,5).
+edge(4,5).
+To represent the fact that the edges are bi-directional we could either add eight more ‘edge’
+clauses (edge(2,1),etc.) or we could try a rule like:
+edge(X,Y) :- edge(Y,X).
+However, this is not a good idea. If you add the above rule in your program is problematic.
+Avoid this problem by defining a predicate connected/2 in terms edge/2.
+
+------------------Question 2 -------------------
+Develop a Prolog definition which finds paths between any two nodes of a graph. For
+example, we require the following (kind of) behaviour.
+
+    ?- path(1,5,P).
+    P = [1,2,5] ;
+    P = [1,2,3,5] ;
+    P = [1,2,3,4,5] ;
+    P = [1,4,5] ;
+    P = [1,4,3,5] ;
+    P = [1,4,3,2,5] ;
+    P = [1,3,5] ;
+    P = [1,3,4,5] ;
+    P = [1,3,2,5] ;
+    false
+
+The paths are represented by the list of nodes through which one must travel to get from
+node 1 to node 5. Here is a definition for path/3:
+    path(A, B, Path) :-
+    find(A, B, [A], Way),
+    reverse(Way, Path).
+
+Write a Prolog program for find/4 above. The first two parameters of find/4 are A and B,
+the nodes whose path you wish to find. The third parameter is a placeholder for keeping a
+list (or better a list representing a stack) of visited nodes while moving between nodes. The
+final parameter Way will eventually hold the nodes found between A and B.
+Hint: A declarative reading for your program could be “You can find the Way from A to B
+if A and B are connected”. Otherwise, “you can find the Way from A to B provided that A is
+connected to a node C different from B that is not a member of the previously visited nodes,
+and one continues finding another way from C to B”. Avoiding repeated nodes ensures the
+program will not cycle endlessly. At termination, the third parameter is a stack of all visited
+nodes, so return it with B as the Way that has been found. However, you need to reverse it,
+hence the call to the reverse/2 primitive in the path/3 definition.
+
+------------------Question 3 -------------------
+Suppose that edges have lengths, as shown below.
+    edge(1,2,1).
+    edge(1,4,3.5).
+    edge(1,3,2.5).
+    edge(2,3,1).
+    edge(2,5,2.5).
+    edge(3,4,1).
+    edge(3,5,2.2).
+    edge(4,5,1).
+Change path/3 and find/4 to two new definitions path/4 and find/5, so that they return
+also the length of a path.
+
+------------------Question 4-------------------
+Use path/4 and find/5 to write a new program that returns the path with shortest length
+between two nodes A and B. E.g.:
+    ?- shortest(1,5,Path,Length).
+    Path = [1, 2, 5],
+    Length = 3.5.
+Hint: You may find it useful to use the Prolog primitive setof/3 to find the set of all paths
+between two nodes, and then return the one with the shortest length.
